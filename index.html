@@ -138,11 +138,12 @@
 
 <section class="bg-cream" id="blog"><div class="wrap">
   <div class="sec-head"><span class="eyebrow">From the Blog</span><h2>Louisiana Legal Insights</h2><div class="rule"></div></div>
-  <div class="grid3">
+  <div class="grid3" id="homeBlog"><noscript>
     <a class="pa-card" href="dwi-cleansing-period.html"><h3 style="font-size:19px;">What Is the DWI Cleansing Period in Louisiana?</h3><p>Understanding the 10-year &ldquo;cleansing period&rdquo; and how it affects repeat-offense penalties.</p><span class="more">Read More →</span></a>
-    <a class="pa-card" href="personal-injury-settlements.html"><h3 style="font-size:19px;">How Are Personal Injury Settlements Paid Out?</h3><p>Why the settlement check is rarely the final amount you take home.</p><span class="more">Read More →</span></a>
     <a class="pa-card" href="work-with-a-dui.html"><h3 style="font-size:19px;">Where Can I Work With a DUI in Louisiana?</h3><p>Practical guidance on finding employment after a DUI conviction.</p><span class="more">Read More →</span></a>
-  </div>
+    <a class="pa-card" href="personal-injury-settlements.html"><h3 style="font-size:19px;">How Are Personal Injury Settlements Paid Out?</h3><p>Why the settlement check is rarely the final amount you take home.</p><span class="more">Read More →</span></a>
+  </noscript></div>
+  <div class="center" style="margin-top:28px;"><a class="btn btn-ghost" href="blog.html">View all articles →</a></div>
 </div></section>
 </main>
 
@@ -168,5 +169,18 @@
     <div class="mf"><a class="btn btn-ghost" href="payments.html">Other ways to pay</a></div>
   </div>
 </div>
+<script>
+/* Home "From the Blog": show the 3 newest articles from posts.json */
+(function(){
+  var box=document.getElementById('homeBlog'); if(!box)return;
+  function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  fetch('posts.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
+    var posts=Array.isArray(d)?d:((d&&d.posts)||[]); if(!posts.length)return;
+    box.innerHTML=posts.slice(0,3).map(function(p){
+      return '<a class="pa-card" href="'+esc(p.slug)+'.html"><h3 style="font-size:19px;">'+esc(p.title)+'</h3><p>'+esc(p.excerpt)+'</p><span class="more">Read More →</span></a>';
+    }).join('');
+  }).catch(function(){/* keep noscript fallback */});
+})();
+</script>
 </body>
 </html>
